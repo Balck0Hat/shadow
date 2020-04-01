@@ -1,7 +1,7 @@
 package pl.looksoft.shadowlib
 
 import android.app.Activity
-import android.support.annotation.IdRes
+import androidx.annotation.IdRes
 import android.view.View
 
 fun <T : View> View.findShadowedView(@IdRes id: Int): T = findViewById<ShadowLayout>(id).getChild()

@@ -16,18 +16,18 @@ class ShadowsInterceptor(private val context: Context, private val logger: Shado
     private val parametersParser = ParametersParser(context)
 
     override fun intercept(chain: Interceptor.Chain): InflateResult {
-        logger.log("current view: ${chain.request().name()}")
-        val parameters = parametersParser.pullShadowParameters(chain.request().attrs())
+        logger.log("current view: ${chain.request().name}")
+        val parameters = parametersParser.pullShadowParameters(chain.request().attrs)
         if (parameters?.hasValue() == true) {
             logger.log("parameters: $parameters")
             val result = chain.proceed(chain.request())
-            val inside = result.view()
+            val inside = result.view
             if (inside != null) {
-                val sl = ShadowLayout(context, chain.request().attrs())
-                val parent = chain.request().parent()
+                val sl = ShadowLayout(context, chain.request().attrs)
+                val parent = chain.request().parent
                 val insideLayoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
                 if(parent is ViewGroup) {
-                    var params = parent.generateLayoutParams(chain.request().attrs())
+                    var params = parent.generateLayoutParams(chain.request().attrs)
                     if (params.width == 0) {
                         logger.log("width is 0 setting inside to MATCH_PARENT")
                         insideLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
@@ -56,7 +56,7 @@ class ShadowsInterceptor(private val context: Context, private val logger: Shado
                 sl.shadowColor = parameters.shadowColor ?: 0
                 sl.shadowSpread = (parameters.shadowSpread ?: 0.0f)
                 sl.shadowBlur = (parameters.shadowBlur ?: 0.0f)
-                return InflateResult.builder().attrs(chain.request().attrs())
+                return InflateResult.builder().attrs(chain.request().attrs)
                         .context(context)
                         .name(sl.javaClass.name)
                         .view(sl)

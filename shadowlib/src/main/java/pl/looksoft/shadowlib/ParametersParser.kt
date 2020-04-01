@@ -2,7 +2,7 @@ package pl.looksoft.shadowlib
 
 import android.content.Context
 import android.graphics.Color
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 
 class ParametersParser(private val context: Context) {
